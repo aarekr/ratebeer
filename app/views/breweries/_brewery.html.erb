@@ -5,4 +5,11 @@
     <p>Beers count: <%= brewery.beers.count %></p>
   </p>
 
+  <p>
+   <% brewery.beers.each do |beer| %>
+     <%= link_to beer.name, beer %>
+   <% end %>
+  </p>
+
+
 </div>
