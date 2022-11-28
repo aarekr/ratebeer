@@ -4,6 +4,10 @@
 
 <ul>
   <% @ratings.each do |rating| %>
-    <li> <%= rating %> </li>
+    <li> <%= rating.beer.name %> <%= rating.score %> </li>
   <% end %>
+</ul>
+
+<ul>
+  <%= render @ratings %>
 </ul>
