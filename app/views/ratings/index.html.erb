@@ -2,6 +2,8 @@
 
 <p>Number of ratings <%= @ratings.count %></p>
 
+<p><%= link_to 'Rate a beer', 'ratings/new' %></p>
+
 <ul>
   <% @ratings.each do |rating| %>
     <li> <%= rating.beer.name %> <%= rating.score %> </li>
