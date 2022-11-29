@@ -15,4 +15,8 @@ class Beer < ApplicationRecord
       return "Beer has #{ratings.count} #{"rating".pluralize(ratings.count)} with an average of #{ka_average}"
     end
   end
+
+  def to_s
+    return "#{name} - #{brewery.name}"
+  end
 end
