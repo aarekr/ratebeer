@@ -2,11 +2,17 @@
 
 <p>Number of ratings <%= @ratings.count %></p>
 
-<p><%= link_to 'Rate a beer', 'ratings/new' %></p>
+<p><%= link_to 'Rate a beer', new_rating_path %></p>
 
 <ul>
   <% @ratings.each do |rating| %>
     <li> <%= rating.beer.name %> <%= rating.score %> </li>
+  <% end %>
+</ul>
+
+<ul>
+  <% @ratings.each do |rating| %>
+    <li> <%= render rating %> <%= button_to 'delete', rating_path(rating.id), method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}} %> </li>
   <% end %>
 </ul>
 
