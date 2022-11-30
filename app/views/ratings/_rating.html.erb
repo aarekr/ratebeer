@@ -1,5 +1,7 @@
 <div id="<%= dom_id rating %>">
 
-  <li><%= rating.beer.name %> <%= rating.score %></li>
+  <% if !rating.beer.nil? %>
+    <%= rating.beer %> <%= rating.score %>
+  <% end %>
 
 </div>

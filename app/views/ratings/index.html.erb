@@ -6,16 +6,20 @@
 
 <ul>
   <% @ratings.each do |rating| %>
-    <li> <%= rating.beer.name %> <%= rating.score %> </li>
-  <% end %>
-</ul>
-
-<ul>
-  <% @ratings.each do |rating| %>
-    <li> <%= render rating %> <%= button_to 'delete', rating_path(rating.id), method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}} %> </li>
+    <% if !rating.beer.nil? %>
+      <li> <%= render rating %> <%= button_to 'delete', rating_path(rating.id), method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}} %> </li>
+    <% end %>
   <% end %>
 </ul>
 
 <ul>
   <%= render @ratings %>
+</ul>
+
+<ul>
+  <% @ratings.each do |rating| %>
+    <% if rating.beer.nil? %>
+      <li>olueton reittaus <%= rating.score %> <%= button_to 'delete', rating_path(rating.id), method: :delete %> </li>
+    <% end %>
+  <% end %>
 </ul>
