@@ -6,10 +6,17 @@
   </p>
 
   <p>
-   <% brewery.beers.each do |beer| %>
-     <%= link_to beer.name, beer %>
-   <% end %>
+    <% brewery.beers.each do |beer| %>
+      <%= link_to beer.name, beer %>
+    <% end %>
   </p>
 
+  <p>
+    <%= brewery.average_rating %>
+    <% if brewery.ratings.empty? %>
+      Brewery has not yet been rated!
+    <% else %>
+    <% end %>
+  </p>
 
 </div>
