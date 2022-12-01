@@ -50,6 +50,16 @@ class BreweriesController < ApplicationController
   # DELETE /breweries/1 or /breweries/1.json
   def destroy
     @brewery.destroy
+    puts "*** PANIMO TUHOTTU ***"
+    kaljat = Beer.all
+    kaljat.each{|olut| 
+      if olut.brewery.nil?
+        puts "panimoton olut: #{olut}"
+        olut.destroy
+      else
+        puts "olut: #{olut.brewery}"
+      end
+    }
 
     respond_to do |format|
       format.html { redirect_to breweries_url, notice: "Brewery was successfully destroyed." }

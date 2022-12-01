@@ -1,6 +1,6 @@
 class Beer < ApplicationRecord
-  belongs_to :brewery
-  has_many :ratings
+  belongs_to :brewery, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 
   def average_rating
     #summa = 0
@@ -17,6 +17,10 @@ class Beer < ApplicationRecord
   end
 
   def to_s
-    return "#{name} - #{brewery.name}"
+    if brewery.nil?
+      return "#{name} - no brewery"
+    else
+      return "#{name} - #{brewery.name}"
+    end
   end
 end
