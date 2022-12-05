@@ -1,5 +1,5 @@
 class BeersController < ApplicationController
-  before_action :set_beer, only: %i[ show edit update destroy ]
+  before_action :set_beer, only: %i[show edit update destroy]
 
   # GET /beers or /beers.json
   def index
@@ -28,7 +28,7 @@ class BeersController < ApplicationController
     @beer = Beer.new(beer_params)
 
     respond_to do |format|
-      if @beer.save  #redirect_to beer_url(@beer)
+      if @beer.save # redirect_to beer_url(@beer)
         format.html { redirect_to beers_path, notice: "Beer was successfully created." }
         format.json { render :show, status: :created, location: @beer }
       else
@@ -36,7 +36,6 @@ class BeersController < ApplicationController
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
     end
-    
   end
 
   # PATCH/PUT /beers/1 or /beers/1.json
@@ -63,13 +62,14 @@ class BeersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_beer
-      @beer = Beer.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def beer_params
-      params.require(:beer).permit(:name, :style, :brewery_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_beer
+    @beer = Beer.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def beer_params
+    params.require(:beer).permit(:name, :style, :brewery_id)
+  end
 end
