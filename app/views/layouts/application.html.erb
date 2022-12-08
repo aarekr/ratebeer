@@ -14,7 +14,16 @@
     <div class="navibar">
       <%= link_to 'breweries', breweries_path %>
       <%= link_to 'beers', beers_path %>
-      <%= link_to 'all ratings', ratings_path %>
+      <%= link_to 'ratings', ratings_path %>
+      <%= link_to 'users', users_path %> | 
+      <% if current_user %>
+        <%= link_to current_user.username, current_user %>
+        <%= link_to 'Rate a new beer', new_rating_path %>
+        <%= link_to 'Sign out', signout_path %>
+      <% else %>
+        <%= link_to 'Sign up', signup_path %>
+        <%= link_to 'Sign in', signin_path %>
+      <% end %>
     </div>
     <%= yield %>
 
@@ -23,8 +32,8 @@
     <% else %>
       <p>Previous rating: <%= session[:last_rating] %></p>
     <% end %>
-    <% if not session[:user_id].nil? %>
-      <p><%= User.find(session[:user_id]).username %> signed in</p>
+    <% if current_user %>
+      <p><%= current_user.username %> signed in</p>
     <% else %>
       <p>nobody signed in</p>
     <% end %>

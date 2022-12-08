@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   root 'breweries#index'
   get 'signup', to: 'users#new'
-  get 'kaikki_bisset', to: 'beers#index'
+  get 'signin', to: 'sessions#new'
+  get 'signout', to: 'sessions#destroy'
+  delete 'signout', to: 'sessions#destroy'
 
   resources :ratings, only: [:index, :new, :create, :destroy]
   #get 'ratings', to: 'ratings#index'
