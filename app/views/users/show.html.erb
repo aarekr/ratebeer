@@ -6,18 +6,23 @@
 </p>
 
 <p>
-  Has made <%= pluralize(@user.ratings.count, 'rating') %> with an average of <%= @user.average_rating %>
+  <% if @user.ratings.count == 0 %>
+    User has not rated any beers!
+  <% else %>
+    Has made <%= pluralize(@user.ratings.count, 'rating') %> with an average of <%= @user.average_rating %>
+  <% end %>
 </p>
 
 <p>
   <strong>Ratings</strong>
   <ul>
     <% @user.ratings.each do |rating| %>
-      <li> <%= render rating %> </li>
+      <li><%= "#{rating.to_s}" %>
+        <%= link_to "Delete", rating, data: {turbo_method: :delete} %>
+      </li>
     <% end %>
   </ul>
 </p>
-
 
 <hr>
 
