@@ -1,6 +1,25 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  Has made <%= pluralize(@user.ratings.count, 'rating') %> with an average of <%= @user.average_rating %>
+</p>
+
+<p>
+  <strong>Ratings</strong>
+  <ul>
+    <% @user.ratings.each do |rating| %>
+      <li> <%= render rating %> </li>
+    <% end %>
+  </ul>
+</p>
+
+
+<hr>
 
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |

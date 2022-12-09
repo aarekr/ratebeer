@@ -2,24 +2,12 @@
 
 <p>Number of ratings <%= @ratings.count %></p>
 
-<p><%= link_to 'Rate a beer', new_rating_path %></p>
-
 <ul>
   <% @ratings.each do |rating| %>
-    <% if !rating.beer.nil? %>
-      <li> <%= render rating %> <%= button_to 'delete', rating_path(rating.id), method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}} %> </li>
+    <% if rating.beer %>
+      <li> <%= render rating %> </li>
     <% end %>
   <% end %>
 </ul>
 
-<ul>
-  <%= render @ratings %>
-</ul>
-
-<ul>
-  <% @ratings.each do |rating| %>
-    <% if rating.beer.nil? %>
-      <li>olueton reittaus <%= rating.score %> <%= button_to 'delete', rating_path(rating.id), method: :delete %> </li>
-    <% end %>
-  <% end %>
-</ul>
+<p><%= link_to 'New rating', new_rating_path %></p><hr>
