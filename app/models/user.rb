@@ -2,15 +2,11 @@ class User < ApplicationRecord
   include RatingAverage
 
   def check_capital_letter
-    if not password =~ /[A-Z]/
-      errors.add(:password, "should contain at least 1 capital letter")
-    end
+    return errors.add(:password, "should contain at least 1 capital letter") if password !~ /[A-Z]/
   end
 
   def check_number
-    if not password =~ /[0-9]/
-      errors.add(:password, "should contain at least 1 number")
-    end
+    return errors.add(:password, "should contain at least 1 number") if password !~ /[0-9]/
   end
 
   has_secure_password

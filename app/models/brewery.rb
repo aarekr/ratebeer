@@ -7,9 +7,7 @@ class Brewery < ApplicationRecord
     puts "*** YEAR: #{year} ***"
     aika_nyt = Time.now
     puts "*** AIKA NYT: #{aika_nyt} ***"
-    if year > vuosi_nyt
-      errors.add(:year, "can't be in the future")
-    end
+    return errors.add(:year, "can't be in the future") if year > vuosi_nyt
   end
 
   validates :name, length: { minimum: 1 }
