@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @ratings = Rating.all
+    @memberships = Membership.all
+    @beerclubs = Beerclub.all
   end
 
   # GET /users/new

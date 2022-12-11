@@ -1,0 +1,21 @@
+<h1>New membership</h1>
+
+<%= render "form", membership: @membership %>
+
+<br>
+
+<hr>
+<%= form_for(@membership) do |f| %>
+
+  <% if @beerclubs.nil? %>
+    tyhjä klubi
+  <% else %>
+    <%= f.select :beer_club_id, options_from_collection_for_select(@beerclubs, :id, :name) %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+<hr>
+
+<div>
+  <%= link_to "Back to memberships", memberships_path %>
+</div>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @beerclub %>
+
+<div>
+  <%= link_to "Edit this beerclub", edit_beerclub_path(@beerclub) %> |
+  <%= link_to "Back to beerclubs", beerclubs_path %>
+
+  <%= button_to "Destroy this beerclub", @beerclub, method: :delete %>
+</div>

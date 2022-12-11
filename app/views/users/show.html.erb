@@ -14,6 +14,17 @@
 </p>
 
 <p>
+  <strong>Member of</strong>
+  <ul>
+    <% @memberships.each do |m| %>
+      <% if m.user_id == @user.id %>
+        <li><%= "#{(@beerclubs.find_by id:m.beer_club_id).name}" %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</p>
+
+<p>
   <strong>Ratings</strong>
   <ul>
     <% @user.ratings.each do |rating| %>
