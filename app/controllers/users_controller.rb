@@ -56,6 +56,16 @@ class UsersController < ApplicationController
   def destroy
     if @user == current_user
       @user.destroy if @user == current_user
+      puts "*** USER TUHOTTU ***"
+      reittaukset = Rating.all
+      reittaukset.each{ |r|
+        if r.user.nil?
+          puts "useriton reittaus: #{r}"
+          r.destroy
+        else
+          puts "reittaus: #{r}"
+        end
+      }
 
       respond_to do |format|
         format.html { redirect_to users_url, notice: "User was successfully destroyed." }
