@@ -3,10 +3,6 @@ class Brewery < ApplicationRecord
 
   def vuosi_check
     vuosi_nyt = Time.now.year
-    puts "*** VUOSI NYT: #{vuosi_nyt} ***"
-    puts "*** YEAR: #{year} ***"
-    aika_nyt = Time.now
-    puts "*** AIKA NYT: #{aika_nyt} ***"
     return errors.add(:year, "can't be in the future") if year > vuosi_nyt
   end
 
