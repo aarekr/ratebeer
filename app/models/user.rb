@@ -9,6 +9,11 @@ class User < ApplicationRecord
     return errors.add(:password, "should contain at least 1 number") if password !~ /[0-9]/
   end
 
+  def favorite_beer
+    return nil if ratings.empty?
+    ratings.order(score: :desc).limit(1).first.beer
+  end
+
   has_secure_password
 
   validates :username, uniqueness: true
