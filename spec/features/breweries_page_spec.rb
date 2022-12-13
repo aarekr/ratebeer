@@ -7,6 +7,17 @@ describe "Breweries page" do
     expect(page).to have_content 'Number of breweries: 0'
   end
 
+  it "a new brewery can be created via 'New brewery' link" do
+    visit breweries_path
+    expect(page).to have_link 'New brewery'
+    click_link('New brewery')
+    fill_in('brewery_name', with: 'Urquell')
+    fill_in('brewery_year', with: '1842')
+    expect{
+      click_button "Create Brewery"
+    }.to change{Brewery.count}.from(0).to(1)
+  end
+
   describe "when breweries exists" do
     before :each do
       # jotta muuttuja näkyisi it-lohkoissa, tulee sen nimen alkaa @-merkillä
