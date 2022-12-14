@@ -7,6 +7,7 @@ describe "Rating" do
   let!(:beer1) { FactoryBot.create :beer, name: "Iso 3", brewery:brewery }
   let!(:beer2) { FactoryBot.create :beer, name: "Karhu", brewery:brewery }
   let!(:user) { FactoryBot.create :user }
+  let!(:user2) { FactoryBot.create :user, username: "Ulla", password: "Ulla1",password_confirmation: "Ulla1" }
 
   before :each do
     sign_in(username: "Pekka", password: "Foobar1")
@@ -41,7 +42,7 @@ describe "Rating" do
     expect(page).to have_content("Iso 3 - Koff 7 Pekka")
   end
 
-  it "user sees only his/her own ratings" do
+  it "user sees only his/her own ratings on personal page" do
     visit new_rating_path
     select('Karhu', from: 'rating[beer_id]')
     fill_in('rating[score]', with: '8')
@@ -57,6 +58,14 @@ describe "Rating" do
     expect(page).to have_content('Has made 1 rating with an average of 5.0')
     expect(page).to have_content('Iso 3 5')
     expect(page).not_to have_content('Karhu')
-    save_and_open_page
+  end
+
+  it "ratings in db and their number are shown on ratings page" do
+    FactoryBot.create(:rating, beer: beer1, user: user, score: 8)
+    FactoryBot.create(:rating, beer: beer2, user: user2)
+    visit ratings_path
+    expect(page).to have_content('Number of ratings 2')
+    expect(page).to have_content('Iso 3 - Koff 8 Pekka')
+    expect(page).to have_content('Karhu - Koff 10 Ulla')
   end
 end
