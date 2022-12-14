@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+include Helpers
+
 describe "Breweries page" do
   it "should not have any before been created" do
     visit breweries_path
@@ -8,6 +10,8 @@ describe "Breweries page" do
   end
 
   it "a new brewery can be created via 'New brewery' link" do
+    FactoryBot.create :user
+    sign_in(username: "Pekka", password: "Foobar1")
     visit breweries_path
     expect(page).to have_link 'New brewery'
     click_link('New brewery')

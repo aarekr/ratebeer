@@ -3,10 +3,10 @@ require 'rails_helper'
 include Helpers
 
 describe "Beers page" do
-  it "should contain links 'New beer' and 'List of breweries'" do
+  it "should contain link 'List of breweries' and NOT contain link 'New beer'" do
     visit beers_path
     expect(page).to have_content("Beers")
-    expect(page).to have_link("New beer")
+    expect(page).not_to have_link("New beer")
     expect(page).to have_link("List of breweries")
   end
 end
@@ -39,11 +39,10 @@ describe "Beer" do
     expect(page).to have_content('Name is too short')
   end
 
-  it "when a beer is created, it shows on the Beers page" do
+  it "in database shows on the Beers page" do
     FactoryBot.create(:beer, name: "Staro Brno", brewery:brewery)
     visit beers_path
     expect(page).to have_content("Beers")
     expect(page).to have_content("Staro Brno")
   end
-
 end
