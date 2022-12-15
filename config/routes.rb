@@ -17,4 +17,7 @@ Rails.application.routes.draw do
   #post 'ratings', to: 'ratings#create'
 
   resource :session, only: [:new, :create, :destroy]
+
+  get 'places', to: 'places#index'
+  post 'places', to: 'places#search'
 end
