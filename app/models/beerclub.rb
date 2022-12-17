@@ -1,7 +1,6 @@
 class Beerclub < ApplicationRecord
-  belongs_to :user
-
-  has_many :users # has_many :members, source: :user
+  has_many :memberships
+  has_many :users, through: :memberships
 
   def to_s
     "{beerclub.name} Beerclub"

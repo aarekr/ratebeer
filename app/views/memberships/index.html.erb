@@ -3,9 +3,10 @@
 <h1>Memberships</h1>
 
 <div id="memberships">
+  <p>Number of memberships: <%= @memberships.count %></p>
   <% @memberships.each do |membership| %>
-    <%= render membership %>
     <p>
+      <%= render membership %>
       <%= link_to "Show this membership", membership %>
     </p>
   <% end %>

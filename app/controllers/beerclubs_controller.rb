@@ -5,6 +5,8 @@ class BeerclubsController < ApplicationController
   # GET /beerclubs or /beerclubs.json
   def index
     @beerclubs = Beerclub.all
+    @memberships = Membership.all
+    @users = User.all
   end
 
   # GET /beerclubs/1 or /beerclubs/1.json
