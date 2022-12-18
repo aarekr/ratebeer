@@ -22,16 +22,27 @@ class MembershipsController < ApplicationController
 
   # POST /memberships or /memberships.json
   def create
-    puts "*** create membership_params: #{membership_params}"
-    @membership = Membership.new(membership_params)
+    jasenyys_olemassa = false
+    @memberships = Membership.all
+    @memberships.each do |mem|
+      if membership_params['beer_club_id'].to_i == mem['beer_club_id'].to_i
+        if membership_params['user_id'].to_i == mem['user_id'].to_i
+          puts "*** jäsenyys on jo olemassa"
+          jasenyys_olemassa = true
+        end
+      end
+    end
 
-    respond_to do |format|
-      if @membership.save
-        format.html { redirect_to membership_url(@membership), notice: "Membership was successfully created." }
-        format.json { render :show, status: :created, location: @membership }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @membership.errors, status: :unprocessable_entity }
+    if jasenyys_olemassa == false
+      @membership = Membership.new(membership_params)
+      respond_to do |format|
+        if @membership.save
+          format.html { redirect_to membership_url(@membership), notice: "Membership was successfully created." }
+          format.json { render :show, status: :created, location: @membership }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @membership.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

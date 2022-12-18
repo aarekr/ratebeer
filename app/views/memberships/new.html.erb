@@ -4,24 +4,6 @@
 
 <br>
 
-<hr>
-<%= form_for(@membership) do |f| %>
-  <% user_id = current_user.id %>
-  <% if @beerclubs.nil? %>
-    tyhjä klubi
-  <% else %>
-    Beer club:
-    <%= f.select :beer_club_id, options_from_collection_for_select(@beerclubs, :id, :name) %>
-    <br>
-    Username: <%= current_user.username %>
-    <br>
-    <br>
-    user_id: <%= user_id %>
-    <%= f.submit %>
-  <% end %>
-<% end %>
-<hr>
-
 <div>
   <%= link_to "Back to memberships", memberships_path %>
 </div>

@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :beer_club_id, style: "display: block" %>
-    <%= form.number_field :beer_club_id %>
+    <%= form.select :beer_club_id, options_from_collection_for_select(@beerclubs, :id, :name) %>
   </div>
 
   <div>
