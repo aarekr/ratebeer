@@ -40,6 +40,31 @@ class User < ApplicationRecord
     style_kasittely(userit, reittaukset, suosikki_tyyli_taulu)
   end
 
+  def brewery_kasittely(userit, reittaukset, fav_brew)
+    userit.each do |user|
+      data = {}
+      suosikki_panimo = ""; suosikki_lkm = 0
+      reittaukset.each do |r|
+        if r.user_id == user.id
+          data[r.beer.brewery.name] = data[r.beer.brewery.name].to_i + r.score.to_i
+          if data[r.beer.brewery.name] > suosikki_lkm
+            suosikki_lkm = data[r.beer.brewery.name]
+            suosikki_panimo = r.beer.brewery.name
+          end
+        end
+      end
+      fav_brew[user.id] = suosikki_panimo
+    end
+    fav_brew
+  end
+
+  def favorite_brewery
+    fav_brew = {}
+    userit = User.all
+    reittaukset = Rating.all
+    brewery_kasittely(userit, reittaukset, fav_brew)
+  end
+
   has_secure_password
 
   validates :username, uniqueness: true

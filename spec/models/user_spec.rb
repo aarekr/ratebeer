@@ -79,6 +79,20 @@ RSpec.describe User, type: :model do
       expect(user.favorite_style).to eq(1=>"Lager")
     end
   end
+
+  describe "favorite brewery" do
+    let(:user){ FactoryBot.create(:user) }
+
+    it "with two breweries, favorite brewery is returned" do
+      brewery1 = FactoryBot.create(:brewery, name: "Koff")
+      brewery2 = FactoryBot.create(:brewery, name: "Karjala")
+      beer1 = FactoryBot.create(:beer, brewery: brewery1)
+      beer2 = FactoryBot.create(:beer, brewery: brewery2)
+      rating = FactoryBot.create(:rating, score: 5, beer: beer1, user: user)
+      rating = FactoryBot.create(:rating, score: 9, beer: beer2, user: user)
+      expect(user.favorite_brewery).to eq(1=>"Karjala")
+    end
+  end
 end
 
 def create_beer_with_rating(object, score)
