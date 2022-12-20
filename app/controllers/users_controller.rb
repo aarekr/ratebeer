@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @ratings = Rating.all
     @memberships = Membership.all
     @beerclubs = Beerclub.all
+    @allusers = User.all
   end
 
   # GET /users/new

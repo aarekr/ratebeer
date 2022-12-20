@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[show edit update destroy]
+  # before_action :set_beer_clubs, only: %i[new edit create]
 
   # GET /memberships or /memberships.json
   def index
@@ -25,16 +26,17 @@ class MembershipsController < ApplicationController
     jasenyys_olemassa = false
     @memberships = Membership.all
     @memberships.each do |mem|
-      if membership_params['beer_club_id'].to_i == mem['beer_club_id'].to_i
-        if membership_params['user_id'].to_i == mem['user_id'].to_i
-          puts "*** jäsenyys on jo olemassa"
-          jasenyys_olemassa = true
-        end
-      end
+      puts "*** membership_params['beer_club_id']: #{membership_params['beer_club_id']}"
+      puts "*** mem['beer_club_id']              : #{mem['beer_club_id']}"
+      puts "*** membership_params['user_id']     : #{membership_params['user_id']}"
+      puts "*** mem['user_id']                   : #{mem['user_id']}"
+      jasenyys_olemassa = true if membership_params['beer_club_id'].to_i == mem['beer_club_id'].to_i && membership_params['user_id'].to_i == mem['user_id'].to_i
     end
+    puts "*** jasenyys_olemassa: #{jasenyys_olemassa}"
 
     if jasenyys_olemassa == false
       @membership = Membership.new(membership_params)
+      # @membership.user_id = current_user.id
       respond_to do |format|
         if @membership.save
           format.html { redirect_to membership_url(@membership), notice: "Membership was successfully created." }
@@ -76,6 +78,11 @@ class MembershipsController < ApplicationController
   def set_membership
     @membership = Membership.find(params[:id])
   end
+
+  # def set_beer_clubs
+  #  memberships_of_current = current_user.memberships.map(&:beerclub)
+  #  @beer_clubs = BeerClub.where.not(id: memberships_of_current)
+  # end
 
   # Only allow a list of trusted parameters through.
   def membership_params

@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
     expect(User.count).to eq(0)
   end
 
-  it "is not saved with only small letters" do
+  it "is not saved with a password that contains only small letters" do
     user = User.create username: "Bertta", password: "abcde", password_confirmation: "abcde"
     expect(user).not_to be_valid
     expect(User.count).to eq(0)
@@ -65,6 +65,18 @@ RSpec.describe User, type: :model do
       # create_beers_with_many_ratings( {user: user}, 10, 15, 9) # 3 olutta kerralla
       best = create_beer_with_rating({ user: user }, 25 )
       expect(user.favorite_beer).to eq(best)
+    end
+  end
+
+  describe "favorite style" do
+    let(:user){ FactoryBot.create(:user) }
+
+    it "with two beers, favorite style is returned" do
+      beer1 = FactoryBot.create(:beer, name: 'Punk IPA', style: 'IPA')
+      beer2 = FactoryBot.create(:beer, name: 'Gambrinus', style: 'Lager')
+      rating = FactoryBot.create(:rating, score: 5, beer: beer1, user: user)
+      rating = FactoryBot.create(:rating, score: 9, beer: beer2, user: user)
+      expect(user.favorite_style).to eq(1=>"Lager")
     end
   end
 end

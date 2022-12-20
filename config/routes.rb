@@ -18,6 +18,6 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
-  get 'places', to: 'places#index'
+  resources :places, only: [:index, :show]
   post 'places', to: 'places#search'
 end

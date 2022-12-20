@@ -15,6 +15,31 @@ class User < ApplicationRecord
     ratings.order(score: :desc).limit(1).first.beer
   end
 
+  def style_kasittely(userit, reittaukset, suosikki_tyyli_taulu)
+    userit.each do |user|
+      data = {}
+      suosikki_tyyli = ""; suosikki_lkm = 0
+      reittaukset.each do |r|
+        if r.user_id == user.id
+          data[r.beer.style] = data[r.beer.style].to_i + r.score.to_i
+          if data[r.beer.style] > suosikki_lkm
+            suosikki_lkm = data[r.beer.style]
+            suosikki_tyyli = r.beer.style
+          end
+        end
+      end
+      suosikki_tyyli_taulu[user.id] = suosikki_tyyli
+    end
+    suosikki_tyyli_taulu
+  end
+
+  def favorite_style
+    suosikki_tyyli_taulu = {}
+    userit = User.all
+    reittaukset = Rating.all
+    style_kasittely(userit, reittaukset, suosikki_tyyli_taulu)
+  end
+
   has_secure_password
 
   validates :username, uniqueness: true

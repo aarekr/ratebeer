@@ -14,6 +14,20 @@
 </p>
 
 <p>
+  <strong>Favorite beer:</strong>
+  <%= @user.favorite_beer %>
+</p>
+
+<p>
+  <strong>Favorite style:</strong>
+  <%= @user.favorite_style[@user.id] %>
+</p>
+
+<p>
+  <strong>Favorite brewery:</strong>
+</p>
+
+<p>
   <strong>Member of</strong>
   <ul>
     <% @memberships.each do |m| %>
