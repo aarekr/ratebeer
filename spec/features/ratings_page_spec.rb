@@ -68,4 +68,27 @@ describe "Rating" do
     expect(page).to have_content('Iso 3 - Koff 8 Pekka')
     expect(page).to have_content('Karhu - Koff 10 Ulla')
   end
+
+  describe "Personal favorites" do
+    let!(:brewery_wei) { FactoryBot.create(:brewery, name: "Weihenstephaner") }
+    let!(:beer_wei) { FactoryBot.create(:beer, name: "Hefeweizen", style: "Weizen", brewery:brewery_wei) }
+    let!(:rating1) { FactoryBot.create(:rating, beer: beer1, user: user, score: 8) }
+    let!(:rating2) { FactoryBot.create(:rating, beer: beer2, user: user, score: 10) }
+    let!(:rating3) { FactoryBot.create(:rating, beer: beer_wei, user: user, score: 15) }
+    
+    it "favorite beer is displayed on the user page" do
+      visit user_path(user)
+      expect(page).to have_content("Favorite beer: Hefeweizen")
+    end
+
+    it "favorite brewery is displayed on the user page" do
+      visit user_path(user)
+      expect(page).to have_content("Favorite brewery: Koff")
+    end
+
+    it "favorite beer style is displayed on the user page" do
+      visit user_path(user)
+      expect(page).to have_content("Favorite style: Lager")
+    end
+  end
 end

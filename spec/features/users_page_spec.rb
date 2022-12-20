@@ -18,8 +18,8 @@ describe "User" do
     it "is redirected back to signin form if wrong credentials given" do
       sign_in(username: "Pekka", password: "wrong")
 
-      #expect(current_path).to eq(signin_path)
-      #expect(page).to have_content 'Username and/or password mismatch'
+      expect(current_path).to eq(signin_path)
+      expect(page).to have_content 'Username and/or password mismatch'
     end
 
     it "when signed up with good credentials, is added to the system" do

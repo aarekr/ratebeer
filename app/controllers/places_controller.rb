@@ -3,7 +3,6 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @places = []
   end
 
   def search
