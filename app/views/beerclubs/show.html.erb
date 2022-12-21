@@ -2,10 +2,16 @@
 
 <%= render @beerclub %>
 
-<%= form_with(model: @membership) do |form| %>
-  <%= form.hidden_field :beer_club_id, value: @beerclub.id %>
-  <%= form.hidden_field :user_id, value: current_user.id %>
-  <%= form.submit "Join the beer club" %>
+<% if current_user %>
+  <% if @jasenen_klubi_idt.include?(@beerclub.id) %>
+    You are a member of this beer club<br>
+  <% else %>
+    <%= form_with(model: @membership) do |form| %>
+      <%= form.hidden_field :beer_club_id, value: @beerclub.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.submit "Join the beer club" %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <br>
