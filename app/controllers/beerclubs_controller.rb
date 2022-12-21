@@ -13,6 +13,8 @@ class BeerclubsController < ApplicationController
   def show
     @users = User.all
     @memberships = Membership.all
+    @membership = Membership.new
+    @beerclubs = Beerclub.all
   end
 
   # GET /beerclubs/new

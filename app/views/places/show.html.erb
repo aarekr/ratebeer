@@ -1,5 +1,11 @@
 <h1>Ravintola</h1>
 
 <p>
-  show sivu 
+  id: <%= params["id"] %>
+  <br>
+  show sivu: <%= session[:vika_haku] %>
+  <br>
+  <%= session[:vika_haku] do |rafla| %>
+    <% render rafla[params["id"]]%>
+  <% end %>
 </p>

@@ -12,16 +12,21 @@ class BeermappingApi
     url = "http://beermapping.com/webservice/loccity/#{key}/"
 
     response = HTTParty.get "#{url}#{ERB::Util.url_encode(city)}"
-    puts "*** BeermappingApi response: #{response}"
+    # puts "*** BeermappingApi response: #{response}"
     places = response.parsed_response["bmp_locations"]["location"]
-    puts "*** BeermappingApi places: #{places}"
+    # puts "*** BeermappingApi places: #{places}"
 
     return [] if places.is_a?(Hash) && places['id'].nil?
 
     places = [places] if places.is_a?(Hash)
     places.map do |place|
+      puts "*** BeermappingApi place: #{place}"
       Place.new(place)
     end
+  end
+
+  def self.get_rafla_by_id(rafla_id)
+    puts "*** GET RAFLA, id: #{rafla_id}, #{Rails.cache.fetch(rafla_id)}"
   end
 
   def self.key
