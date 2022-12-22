@@ -5,16 +5,30 @@ class PlacesController < ApplicationController
   end
 
   def show
+    '''
     puts "*** SHOW ravintolan id: #{params[:id]}"
-    @ravintola = BeermappingApi.get_rafla_by_id(params[:id])
     puts "*** SHOW @ravintola: #{params[:id]}"
-    # @session[:vika_haku]
+
+    response = HTTParty.get "#{url}"
+    puts "*** SÄÄ RESPONSE: #{response}"
+    puts "*** SÄÄ RESPONSE location: #{response['location']}"
+    puts "*** SÄÄ RESPONSE location name: #{response['location']['name']}"
+    puts "*** SÄÄ RESPONSE current temperatue: #{response['current']['temperature']}"
+    puts "*** SÄÄ RESPONSE current wind_speed: #{response['current']['wind_speed']}"
+    puts "*** SÄÄ RESPONSE current wind_dir: #{response['current']['wind_dir']}"
+    puts "*** SÄÄ RESPONSE current: #{response['current']}"
+
+    @kaupunki = response['location']['name']
+    @lampotila = response['current']['temperature']
+    @saa_ikoni = response['current']['weather_icons']
+    @wind_speed = response['current']['wind_speed']
+    @wind_dir = response['current']['wind_dir']
+    puts "*** SÄÄ RESPONSE @kaupunki: #{@kaupunki}"
+    '''
   end
 
   def search
     @places = BeermappingApi.places_in(params[:city])
-    # puts "*** SEARCH: #{@places}"
-    # puts "*** SEARCH.first: #{@places.first}"
     session[:vika_haku] = "#{@places}"
     puts "*** SEARCH session: #{session[:vika_haku]}"
     puts "*** SEARCH session toka: #{session[:vika_haku].class}"
@@ -26,7 +40,5 @@ class PlacesController < ApplicationController
   end
 
   def set_place
-    @ravintola = BeermappingApi.get_rafla_by_id(params[:id])
-    puts "*** set_place @ravintola: #{@ravintola}"
   end
 end

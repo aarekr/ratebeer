@@ -20,13 +20,10 @@ class BeerclubsController < ApplicationController
     return unless current_user
 
     @memberships.each do |mem|
-        puts "*** MEM user_id: #{mem.user_id}, klubi_id: #{mem.beer_club_id}"
-        if mem.user_id == current_user.id
-          @jasenen_klubi_idt << mem.beer_club_id.to_i
-        end
+      if mem.user_id == current_user.id
+        @jasenen_klubi_idt << mem.beer_club_id.to_i
       end
-      puts "*** MEM @jasenen_klubi_idt: #{@jasenen_klubi_idt}"
-      puts "*** current_user.id: #{current_user.id}"
+    end
   end
 
   # GET /beerclubs/new

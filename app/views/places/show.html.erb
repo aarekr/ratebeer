@@ -1,7 +1,12 @@
 <h1>Ravintola</h1>
 
 <p>
-  id: <%= params["id"] %>
+  id: <%= params["id"] %> <br>
+  The current beer weather in <%= @kaupunki %> <br>
+  <%= @lampotila %> Celsius <br>
+  <img src=@saa_ikoni.first> <br>
+  wind <%= @wind_speed %>, direction: <%= @wind_dir %>
+</p>
   <br>
   show sivu: <%= session[:vika_haku] %>
   <br>

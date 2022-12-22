@@ -5,6 +5,11 @@
 <% if current_user %>
   <% if @jasenen_klubi_idt.include?(@beerclub.id) %>
     You are a member of this beer club<br>
+    <%= form_with(model: @membership, method: :delete) do |form| %>
+      <%= form.hidden_field :beer_club_id, value: @beerclub.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.submit "End the membership" %>
+    <% end %>
   <% else %>
     <%= form_with(model: @membership) do |form| %>
       <%= form.hidden_field :beer_club_id, value: @beerclub.id %>

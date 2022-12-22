@@ -25,10 +25,6 @@ class BeermappingApi
     end
   end
 
-  def self.get_rafla_by_id(rafla_id)
-    puts "*** GET RAFLA, id: #{rafla_id}, #{Rails.cache.fetch(rafla_id)}"
-  end
-
   def self.key
     "ddd910aa0b5ef3abdcca0736426a237d"
     # return nil if Rails.env.test? # testatessa ei apia tarvita, palautetaan nil
