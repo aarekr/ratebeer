@@ -7,7 +7,7 @@
 <div id="breweries">
   <% @breweries.each do |brewery| %>
     <div id="<%= dom_id brewery %>">
-      <p><%= link_to brewery.name, brewery %></p>
+      <p><%= link_to brewery.name, brewery, class:"btn btn-primary" %></p>
       <p><strong>Year:</strong><%= brewery.year %></p>
     </div>
   <% end %>
