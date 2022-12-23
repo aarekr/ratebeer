@@ -1,27 +1,29 @@
-<%= form_with(model: brewery) do |form| %>
-  <% if brewery.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(brewery.errors.count, "error") %> prohibited this brewery from being saved:</h2>
+<div style="width:70%">
+  <%= form_with(model: brewery) do |form| %>
+    <% if brewery.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(brewery.errors.count, "error") %> prohibited this brewery from being saved:</h2>
 
-      <ul>
-        <% brewery.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% brewery.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row g-0">
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="row g-0">
+      <%= form.label :year, style: "display: block" %>
+      <%= form.number_field :year %>
+    </div class="row g-0"><br>
+
+    <div>
+      <%= form.submit "Create brewery", class:"btn btn-primary" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :year, style: "display: block" %>
-    <%= form.number_field :year %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

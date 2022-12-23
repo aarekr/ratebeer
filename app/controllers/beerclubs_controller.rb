@@ -37,7 +37,10 @@ class BeerclubsController < ApplicationController
 
   # POST /beerclubs or /beerclubs.json
   def create
+    puts "*** tultiin beerclub createen"
+    puts "*** tultiinn beerclub createen, beerclub_params: #{beerclub_params}"
     @beerclub = Beerclub.new(beerclub_params)
+    puts "*** create beerclub_params: #{beerclub_params}"
 
     respond_to do |format|
       if @beerclub.save
