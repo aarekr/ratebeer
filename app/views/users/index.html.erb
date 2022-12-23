@@ -1,14 +1,28 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Users</h1>
 
 <div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Favorite beer</th>
+      <th scope="col">Favorite style</th>
+      <th scope="col">Favorite brewery</th>
+      <th scope="col">Ratings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.username, user %></td>
+        <td><%= user.favorite_beer %></td>
+        <td><%= user.favorite_style[user.id] %></td>
+        <td><%= user.favorite_brewery[user.id] %></td>
+        <td><%= user.ratings.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
 </div>
 
 <%= link_to "New user", new_user_path %>

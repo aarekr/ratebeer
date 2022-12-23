@@ -1,7 +1,7 @@
 <div id="<%= dom_id rating %>">
 
   <% if !rating.beer.nil? %>
-    <%= rating.beer %> <%= rating.score %> 
+    <%= rating.beer %> <%= rating.score %>
     <%= link_to rating.user.username, user_path(rating.user.id) %>
   <% end %>
 
