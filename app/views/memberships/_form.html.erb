@@ -1,27 +1,28 @@
-<%= form_with(model: membership) do |form| %>
-  <% if membership.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+<div style="width:70%">
+  <%= form_with(model: membership) do |form| %>
+    <% if membership.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
 
-      <ul>
-        <% membership.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% membership.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row g-0">
+      <%= form.label :beer_club_id, style: "display: block" %>
+      <%= form.select :beer_club_id, options_from_collection_for_select(@beerclubs, :id, :name) %>
+
+      <%= form.label :user_id, style: "display: block" %>
+      <% user_id = current_user.id %>
+      <%= form.number_field :user_id, selected: current_user.id %>
+    </div><br>
+
+    <div>
+      <%= form.submit "Join the club", class:"btn btn-primary" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :beer_club_id, style: "display: block" %>
-    <%= form.select :beer_club_id, options_from_collection_for_select(@beerclubs, :id, :name) %>
-
-    <%= form.label :user_id, style: "display: block" %>
-    <% user_id = current_user.id %>
-    <%= form.number_field :user_id, selected: current_user.id %>
-    your user id: <%= current_user.id %> and username: <%= current_user.username %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
