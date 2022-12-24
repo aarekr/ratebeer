@@ -8,6 +8,14 @@
 <% end %>
 
 <% if @places %>
+  <br>
+  <p>
+    <strong>The current beer weather in <%= @kaupunki %></strong> <br>
+    <%= @lampotila %> Celsius <br>
+    <img src="@saa_ikoni[0]" width="50" height="50"> <br>
+    <b>wind</b> <%= @wind_speed %>, direction: <%= @wind_dir %> <br>
+  </p>
+
   <table>
     <thead>
       <% Place.rendered_fields.each do |field| %>
