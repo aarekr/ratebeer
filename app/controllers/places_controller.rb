@@ -9,7 +9,7 @@ class PlacesController < ApplicationController
 
   def search
     @places = BeermappingApi.places_in(params[:city])
-    session[:vika_haku] = to_s
+    session[:vika_haku] = @places
     puts "*** SEARCH session: #{session[:vika_haku]}"
     puts "*** SEARCH session toka: #{session[:vika_haku].class}"
     if @places.empty?
@@ -20,9 +20,5 @@ class PlacesController < ApplicationController
   end
 
   def set_place
-  end
-
-  def to_s
-    "#{@places}"
   end
 end

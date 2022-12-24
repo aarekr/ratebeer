@@ -1,16 +1,10 @@
-<h1>Ravintola</h1>
-
 <p>
-  id: <%= params["id"] %> <br>
-  The current beer weather in <%= @kaupunki %> <br>
-  <%= @lampotila %> Celsius <br>
-  <img src=@saa_ikoni.first> <br>
-  wind <%= @wind_speed %>, direction: <%= @wind_dir %>
-</p>
-  <br>
-  show sivu: <%= session[:vika_haku] %>
-  <br>
-  <%= session[:vika_haku] do |rafla| %>
-    <% render rafla[params["id"]]%>
+  <% session[:vika_haku].each do |rafla| %>
+    <% if rafla["table"]["id"] == params["id"] %>
+      <h4> <%= rafla["table"]["name"] %> </h4> <br>
+      <p> <%= rafla["table"]["status"] %> </p>
+      <p> <%= rafla["table"]["street"] %> </p>
+      <p> <%= rafla["table"]["zip"] %> <%= rafla["table"]["city"] %> </p>
+    <% end %>
   <% end %>
 </p>
