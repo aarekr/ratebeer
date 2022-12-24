@@ -24,7 +24,7 @@
           <td><%= brewery.ratings.count %></td>
           <td>
             <% if !brewery.average_rating.nil? %>
-              <%= brewery.average_rating %>
+              <%= number_with_precision(brewery.average_rating, precision: 1) %>
             <% else %>
               No ratings!
             <% end %>
