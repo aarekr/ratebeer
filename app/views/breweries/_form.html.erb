@@ -20,10 +20,15 @@
     <div class="row g-0">
       <%= form.label :year, style: "display: block" %>
       <%= form.number_field :year %>
-    </div class="row g-0"><br>
+    </div class="row g-0">
+    
+    <div>
+      <%= form.label :active, style: "display: block" %>
+      <%= form.check_box :active %>
+    </div><br>
 
     <div>
-      <%= form.submit "Create brewery", class:"btn btn-primary" %>
+      <%= form.submit "Submit", class:"btn btn-primary" %>
     </div>
   <% end %>
 </div>

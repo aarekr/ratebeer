@@ -23,27 +23,20 @@ class MembershipsController < ApplicationController
 
   # POST /memberships or /memberships.json
   def create
-    jasenyys_olemassa = false
-    @memberships = Membership.all
+    jasenyys_olemassa = false; @memberships = Membership.all
     @memberships.each do |mem|
-      puts "*** membership_params['beer_club_id']: #{membership_params['beer_club_id']}"
-      puts "*** mem['beer_club_id']              : #{mem['beer_club_id']}"
-      puts "*** membership_params['user_id']     : #{membership_params['user_id']}"
-      puts "*** mem['user_id']                   : #{mem['user_id']}"
       jasenyys_olemassa = true if membership_params['beer_club_id'].to_i == mem['beer_club_id'].to_i && membership_params['user_id'].to_i == mem['user_id'].to_i
     end
-    puts "*** jasenyys_olemassa: #{jasenyys_olemassa}"
+    return unless jasenyys_olemassa == false
 
-    if jasenyys_olemassa == false
-      @membership = Membership.new(membership_params)
-      respond_to do |format|
-        if @membership.save
-          format.html { redirect_to beerclub_url('beer_club_id'), notice: "#{(User.find_by id: current_user.id).username} welcome to the club." }
-          format.json { render :show, status: :created, location: @membership }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @membership.errors, status: :unprocessable_entity }
-        end
+    @membership = Membership.new(membership_params)
+    respond_to do |format|
+      if @membership.save
+        format.html { redirect_to beerclub_url('beer_club_id'), notice: "#{(User.find_by id: current_user.id).username} welcome to the club." }
+        format.json { render :show, status: :created, location: @membership }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @membership.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -3,6 +3,9 @@
     <h2><strong><%= brewery.name %></strong></h2>
     <i>Established in <%= brewery.year %></i>
     <p>Beers count: <%= brewery.beers.count %></p>
+    <% if not brewery.active  %>
+      <span class="badge bg-secondary">retired</span>
+    <% end %>
   </p>
 
   <p>

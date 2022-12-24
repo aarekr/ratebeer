@@ -1,6 +1,9 @@
 class RatingsController < ApplicationController
   def index
     @ratings = Rating.all
+    @aktiivisimmat = most_active_users
+    @viimeiset_viisi = recent_ratings
+    @parhaat_tyylit = best_styles
   end
 
   def new
@@ -24,5 +27,38 @@ class RatingsController < ApplicationController
     rating = Rating.find(params[:id])
     rating.delete if current_user == rating.user
     redirect_to user_path(current_user)
+  end
+
+  def best_styles
+    puts "*** tultiin best_stylesiin"
+    ranking = {}
+    Rating.all.each do |reittaus|
+      puts "*** reittaus: #{reittaus.beer} #{reittaus.score} #{reittaus.beer.style}"
+      luvut = [0.to_i, 0.to_i, 0.to_i] # keskiarvo, pisteet, lkm
+      ranking[reittaus.beer.style] = luvut if !ranking.include?(reittaus.beer.style)
+      ranking[reittaus.beer.style][1] += reittaus.score
+      ranking[reittaus.beer.style][2] += 1
+      ranking[reittaus.beer.style][0] = ranking[reittaus.beer.style][1] / ranking[reittaus.beer.style][2]
+      puts "*** ranking: #{ranking}"
+    end
+    ranking.sort_by(&:second).reverse[0..2]
+  end
+
+  def most_active_users
+    ranking = {}
+    Rating.all.each do |reittaus|
+      username = (User.all.find_by id: reittaus.user_id).username
+      ranking[username] = 0 if !ranking.include?(username)
+      ranking[username] += 1
+    end
+    ranking.sort_by(&:second).reverse[0..2]
+  end
+
+  def recent_ratings
+    taulu = []
+    @ratings.each do |rating|
+      taulu << "#{rating.beer} #{rating.score} #{rating.created_at}"
+    end
+    taulu[-5..]
   end
 end
