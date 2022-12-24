@@ -4,30 +4,45 @@
 
 <div class="container text-center">
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
       <h4>Best beers</h4>
-        <div class="row">
-          <div class="col-8 col-sm-6">
-            tähän taulukko
-          </div>
-          <div class="col-8 col-sm-6">
-            Level 2:
-          </div>
-        </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Beer</th>
+            <th scope="col">Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @parhaat_oluet.each do |item| %>
+            <tr>
+              <td><%= item.first %></td>
+              <td><%= item.second[0] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
       <h4>Best breweries</h4>
-        <div class="col-8 col-sm-6">
-          Level 2:
-        </div>
-        <div class="col-8 col-sm-6">
-          Level 2:
-        </div>
-        <div class="col-8 col-sm-6">
-          Level 2:
-        </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Beer</th>
+            <th scope="col">Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @parhaat_panimot.each do |item| %>
+            <tr>
+              <td><%= item.first %></td>
+              <td><%= item.second[0] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
       <h4>Best styles</h4>
       <table class="table table-hover">
         <thead>

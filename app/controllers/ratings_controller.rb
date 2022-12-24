@@ -4,6 +4,8 @@ class RatingsController < ApplicationController
     @aktiivisimmat = most_active_users
     @viimeiset_viisi = recent_ratings
     @parhaat_tyylit = best_styles
+    @parhaat_oluet = best_beers
+    @parhaat_panimot = best_breweries
   end
 
   def new
@@ -29,17 +31,38 @@ class RatingsController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def best_beers
+    ranking = {}
+    Rating.all.each do |r|
+      luvut = [0.to_f, 0.to_f, 0.to_f] # keskiarvo, pisteet, lkm
+      ranking[r.beer.name] = luvut if !ranking.include?(r.beer.name)
+      ranking[r.beer.name][1] += r.score
+      ranking[r.beer.name][2] += 1
+      ranking[r.beer.name][0] = ranking[r.beer.name][1] / ranking[r.beer.name][2]
+    end
+    ranking.sort_by(&:second).reverse[0..2]
+  end
+
+  def best_breweries
+    ranking = {}
+    Rating.all.each do |r|
+      luvut = [0.to_f, 0.to_f, 0.to_f] # keskiarvo, pisteet, lkm
+      ranking[r.beer.brewery.name] = luvut if !ranking.include?(r.beer.brewery.name)
+      ranking[r.beer.brewery.name][1] += r.score
+      ranking[r.beer.brewery.name][2] += 1
+      ranking[r.beer.brewery.name][0] = ranking[r.beer.brewery.name][1] / ranking[r.beer.brewery.name][2]
+    end
+    ranking.sort_by(&:second).reverse[0..2]
+  end
+
   def best_styles
-    puts "*** tultiin best_stylesiin"
     ranking = {}
     Rating.all.each do |reittaus|
-      puts "*** reittaus: #{reittaus.beer} #{reittaus.score} #{reittaus.beer.style}"
       luvut = [0.to_i, 0.to_i, 0.to_i] # keskiarvo, pisteet, lkm
       ranking[reittaus.beer.style] = luvut if !ranking.include?(reittaus.beer.style)
       ranking[reittaus.beer.style][1] += reittaus.score
       ranking[reittaus.beer.style][2] += 1
       ranking[reittaus.beer.style][0] = ranking[reittaus.beer.style][1] / ranking[reittaus.beer.style][2]
-      puts "*** ranking: #{ranking}"
     end
     ranking.sort_by(&:second).reverse[0..2]
   end
