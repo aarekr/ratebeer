@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+include Helpers
+
 RSpec.describe User, type: :model do
   it "has the username set correctly" do
     user = User.new username: "Pekka"
@@ -71,6 +73,10 @@ RSpec.describe User, type: :model do
   describe "favorite style" do
     let(:user){ FactoryBot.create(:user) }
 
+    it "has method for determining one" do
+      expect(user).to respond_to(:favorite_style)
+    end
+
     it "with two beers, favorite style is returned" do
       beer1 = FactoryBot.create(:beer, name: 'Punk IPA', style: 'IPA')
       beer2 = FactoryBot.create(:beer, name: 'Gambrinus', style: 'Lager')
@@ -82,6 +88,10 @@ RSpec.describe User, type: :model do
 
   describe "favorite brewery" do
     let(:user){ FactoryBot.create(:user) }
+
+    it "has method for determining one" do
+      expect(user).to respond_to(:favorite_brewery)
+    end
 
     it "with two breweries, favorite brewery is returned" do
       brewery1 = FactoryBot.create(:brewery, name: "Koff")

@@ -6,7 +6,8 @@ describe "Breweries page" do
   it "should not have any before been created" do
     visit breweries_path
     expect(page).to have_content 'Breweries'
-    expect(page).to have_content 'Number of breweries: 0'
+    expect(page).to have_content 'Number of active breweries: 0'
+    expect(page).to have_content 'Number of retired breweries: 0'
   end
 
   it "a new brewery can be created via 'New brewery' link" do
@@ -18,7 +19,7 @@ describe "Breweries page" do
     fill_in('brewery_name', with: 'Urquell')
     fill_in('brewery_year', with: '1842')
     expect{
-      click_button "Create Brewery"
+      click_button "Submit"
     }.to change{Brewery.count}.from(0).to(1)
   end
 
@@ -34,7 +35,9 @@ describe "Breweries page" do
     end
 
     it "lists the breweries and their total number" do
-      expect(page).to have_content "Number of breweries: #{@breweries.count}"
+      expect(page).to have_content "Number of active breweries: 0"
+      expect(page).to have_content "Number of retired breweries: #{@breweries.count}"
+      expect(page).to have_content "No ratings!"
       @breweries.each do |brewery_name|
         expect(page).to have_content brewery_name
       end

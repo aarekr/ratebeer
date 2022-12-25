@@ -56,11 +56,10 @@ class MembershipsController < ApplicationController
 
   # DELETE /memberships/1 or /memberships/1.json
   def destroy
-    puts "*** membership destroy funktio"
     @membership.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_url('user_id'), notice: "Membership was successfully destroyed." }
+      format.html { redirect_to memberships_url, notice: "Membership was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -79,8 +78,6 @@ class MembershipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def membership_params
-    puts "*** membership_params funktio"
-    # user_id = current_user.id
     params.require(:membership).permit(:beer_club_id, :user_id)
   end
 end

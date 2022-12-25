@@ -74,7 +74,7 @@ class User < ApplicationRecord
   validate :check_capital_letter
   validate :check_number
 
-  has_many :ratings
+  has_many :ratings # , dependent: :destroy
   has_many :beers, through: :ratings
 
   has_many :beerclubs, through: :memberships

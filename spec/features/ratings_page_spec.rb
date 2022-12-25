@@ -19,7 +19,7 @@ describe "Rating" do
     fill_in('rating[score]', with: '15')
 
     expect{
-      click_button "Create Rating"
+      click_button "Rate beer"
     }.to change{Rating.count}.from(0).to(1)
 
     expect(user.ratings.count).to eq(1)
@@ -31,22 +31,22 @@ describe "Rating" do
     visit new_rating_path
     select('Karhu', from: 'rating[beer_id]')
     fill_in('rating[score]', with: '8')
-    click_button "Create Rating"
+    click_button "Rate beer"
     visit new_rating_path
     select('Iso 3', from: 'rating[beer_id]')
     fill_in('rating[score]', with: '7')
-    click_button "Create Rating"
+    click_button "Rate beer"
     visit ratings_path
     expect(page).to have_content("Number of ratings 2")
-    expect(page).to have_content("Karhu - Koff 8 Pekka")
-    expect(page).to have_content("Iso 3 - Koff 7 Pekka")
+    expect(page).to have_content("Karhu 8.0")
+    expect(page).to have_content("Iso 3 7")
   end
 
   it "user sees only his/her own ratings on personal page" do
     visit new_rating_path
     select('Karhu', from: 'rating[beer_id]')
     fill_in('rating[score]', with: '8')
-    click_button "Create Rating"
+    click_button "Rate beer"
     visit user_path(user)
     click_link('Sign out')
     FactoryBot.create(:user, username: 'Risto', password: 'Secret55', password_confirmation: 'Secret55')
@@ -54,7 +54,7 @@ describe "Rating" do
     visit new_rating_path
     select('Iso 3', from: 'rating[beer_id]')
     fill_in('rating[score]', with: '5')
-    click_button "Create Rating"
+    click_button "Rate beer"
     expect(page).to have_content('Has made 1 rating with an average of 5.0')
     expect(page).to have_content('Iso 3 5')
     expect(page).not_to have_content('Karhu')
@@ -65,8 +65,23 @@ describe "Rating" do
     FactoryBot.create(:rating, beer: beer2, user: user2)
     visit ratings_path
     expect(page).to have_content('Number of ratings 2')
-    expect(page).to have_content('Iso 3 - Koff 8 Pekka')
-    expect(page).to have_content('Karhu - Koff 10 Ulla')
+    expect(page).to have_content('Iso 3 8')
+    expect(page).to have_content('Karhu 10')
+  end
+
+  it "most active users and recent ratings are displayed" do
+    FactoryBot.create(:rating, beer: beer1, user: user, score: 8)
+    FactoryBot.create(:rating, beer: beer2, user: user2)
+    brewery_wei = FactoryBot.create(:brewery, name: "Weihenstephaner")
+    beer_wei = FactoryBot.create(:beer, name: "Hefeweizen", style: "Weizen", brewery:brewery_wei)
+    FactoryBot.create(:rating, beer: beer_wei, user: user, score: 15)
+    visit ratings_path
+    expect(page).to have_content("Most active users")
+    expect(page).to have_content("Pekka 2 ratings")
+    expect(page).to have_content("Ulla 1 rating")
+    expect(page).to have_content("Iso 3 8 202")
+    expect(page).to have_content("Hefeweizen 15 202")
+    expect(page).to have_content("UTC")
   end
 
   describe "Personal favorites" do

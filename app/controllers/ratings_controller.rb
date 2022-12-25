@@ -78,7 +78,7 @@ class RatingsController < ApplicationController
   end
 
   def recent_ratings
-    taulu = []
+    taulu = [0, 0, 0, 0, 0]
     @ratings.each do |rating|
       taulu << "#{rating.beer} #{rating.score} #{rating.created_at}"
     end

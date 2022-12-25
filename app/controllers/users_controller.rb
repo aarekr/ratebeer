@@ -43,9 +43,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if user_params[:username].nil? && @user == current_user && @user.update(user_params)
         format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { head :no_content } # { render :show, status: :ok, location: @user }
+        format.json { render :show, status: :ok, location: @user }
       else
-        format.html { render action: 'edit' } # render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

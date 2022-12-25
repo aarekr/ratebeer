@@ -25,7 +25,7 @@ describe "Beer" do
     fill_in('beer_name', with: 'Gambrinus')
     select('IPA', from: 'beer[style]')
     expect{
-      click_button "Create Beer"
+      click_button("Create beer")
     }.to change{Beer.count}.from(0).to(1)
   end
 
@@ -34,7 +34,7 @@ describe "Beer" do
     click_link('New beer')
     fill_in('beer_name', with: '')
     select('IPA', from: 'beer[style]')
-    click_button "Create Beer"
+    click_button "Create beer"
     expect(page).to have_content('error prohibited this beer from being saved')
     expect(page).to have_content('Name is too short')
   end
