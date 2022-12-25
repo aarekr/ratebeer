@@ -8,15 +8,14 @@ class PlacesController < ApplicationController
   end
 
   def search
-    key = "..." # sää-key
-    url = "http://api.weatherstack.com/current"
-    response = HTTParty.get "#{url}?access_key=#{key}&query=#{ERB::Util.url_encode(params[:city])}"
-
-    @kaupunki = response["location"]["name"]
-    @lampotila = response["current"]["temperature"]
-    @saa_ikoni = response["current"]["weather_icons"]
-    @wind_speed = response["current"]["wind_speed"]
-    @wind_dir = response["current"]["wind_dir"]
+    if !Rails.env.test?
+      key = "..." # sää-key
+      url = "http://api.weatherstack.com/current"
+      response = HTTParty.get "#{url}?access_key=#{key}&query=#{ERB::Util.url_encode(params[:city])}"
+      @kaupunki = response["location"]["name"]
+      @lampotila = response["current"]["temperature"]; @saa_ikoni = response["current"]["weather_icons"]
+      @wind_speed = response["current"]["wind_speed"]; @wind_dir = response["current"]["wind_dir"]
+    end
 
     @places = BeermappingApi.places_in(params[:city])
     session[:vika_haku] = @places

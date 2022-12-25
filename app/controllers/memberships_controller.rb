@@ -56,6 +56,7 @@ class MembershipsController < ApplicationController
 
   # DELETE /memberships/1 or /memberships/1.json
   def destroy
+    puts "*** membership destroy"
     @membership.destroy
 
     respond_to do |format|

@@ -7,6 +7,14 @@ class BeerclubsController < ApplicationController
     @beerclubs = Beerclub.all
     @memberships = Membership.all
     @users = User.all
+
+    order = params[:order] || 'name'
+
+    @beerclubs = case order
+      when "name" then @beerclubs.sort_by(&:name)
+      when "founded" then @beerclubs.sort_by(&:founded)
+      when "city" then @beerclubs.sort_by(&:city)
+    end
   end
 
   # GET /beerclubs/1 or /beerclubs/1.json

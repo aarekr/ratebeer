@@ -11,8 +11,8 @@ class Beer < ApplicationRecord
   has_many :raters, -> { distinct }, through: :ratings, source: :user
 
   def to_s
-    # "#{name} - #{brewery.name}"
-    "#{name}"
+    "#{name} - #{brewery.name}"
+    # "#{name}"
   end
 
   def average
