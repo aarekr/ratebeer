@@ -25,16 +25,21 @@
   </table>
 </div>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <p>
-      <%= link_to(user.username, user) %>
-      <p>Has made <%= "#{user.ratings.size}"%> ratings, average rating <%= "#{user.average_rating}" %></p>
-      <% if user %>
-        <span class="badge text-bg-danger">account closed</span>
+<% if current_user %>
+  <% if current_user.admin == true %>
+    <br><h3>USER STATUSES</h3>
+    <div id="users">
+      <% @users.each do |user| %>
+        <p>
+          <%= link_to(user.username, user) %>
+          <% if user.active == true %>
+            <span class="badge bg-primary">active</span>
+          <% else %>
+            <span class="badge bg-danger">closed</span>
+          <% end %>
       <% end %>
-    </p>
+    </div> <hr>
   <% end %>
-</div>
+<% end %>
 
 <%= link_to "New user", new_user_path %>

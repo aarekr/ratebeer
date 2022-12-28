@@ -25,6 +25,7 @@ describe "Beerlist page" do
   it "shows one known beer", js:true do
     visit beerlist_path
     # find('table').find('tr:nth-child(2)')
+    save_and_open_page
     expect(page).to have_content "Nikolai"
   end
 
