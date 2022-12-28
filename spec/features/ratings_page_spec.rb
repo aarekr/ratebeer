@@ -55,7 +55,7 @@ describe "Rating" do
     select('Iso 3', from: 'rating[beer_id]')
     fill_in('rating[score]', with: '5')
     click_button "Rate beer"
-    expect(page).to have_content('Has made 1 rating with an average of 5.0')
+    expect(page).to have_content('Has made 1 rating with an average of 5')
     expect(page).to have_content('Iso 3 5')
     expect(page).not_to have_content('Karhu')
   end
@@ -79,8 +79,8 @@ describe "Rating" do
     expect(page).to have_content("Most active users")
     expect(page).to have_content("Pekka 2 ratings")
     expect(page).to have_content("Ulla 1 rating")
-    expect(page).to have_content("Iso 3 8 202")
-    expect(page).to have_content("Hefeweizen 15 202")
+    expect(page).to have_content("Iso 3 - Koff 8 202")
+    expect(page).to have_content("Hefeweizen - Weihenstephaner 15 202")
     expect(page).to have_content("UTC")
   end
 

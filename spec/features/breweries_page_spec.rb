@@ -23,7 +23,7 @@ describe "Breweries page" do
     }.to change{Brewery.count}.from(0).to(1)
   end
 
-  describe "when breweries exists" do
+  describe "when breweries exist" do
     before :each do
       # jotta muuttuja näkyisi it-lohkoissa, tulee sen nimen alkaa @-merkillä
       @breweries = ["Koff", "Karjala", "Schlenkerla"]
@@ -37,7 +37,6 @@ describe "Breweries page" do
     it "lists the breweries and their total number" do
       expect(page).to have_content "Number of active breweries: 0"
       expect(page).to have_content "Number of retired breweries: #{@breweries.count}"
-      expect(page).to have_content "No ratings!"
       @breweries.each do |brewery_name|
         expect(page).to have_content brewery_name
       end

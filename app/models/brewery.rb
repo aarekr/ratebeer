@@ -7,7 +7,7 @@ class Brewery < ApplicationRecord
 
   validates :name, length: { minimum: 1 }
   validates :year, numericality: { only_integer: true,
-                                   greater_than_or_equal_to: 1040}
+                                   greater_than_or_equal_to: 1040 }
   validate :year_not_greater_than_this_year
 
   has_many :beers, dependent: :destroy
