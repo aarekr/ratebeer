@@ -20,12 +20,12 @@ class User < ApplicationRecord
       data = {}
       suosikki_tyyli = ""; suosikki_lkm = 0
       reittaukset.each do |r|
-        if r.user_id == user.id
-          data[r.beer.style] = data[r.beer.style].to_i + r.score.to_i
-          if data[r.beer.style] > suosikki_lkm
-            suosikki_lkm = data[r.beer.style]
-            suosikki_tyyli = r.beer.style
-          end
+        next unless r.user_id == user.id
+
+        data[r.beer.style] = data[r.beer.style].to_i + r.score.to_i
+        if data[r.beer.style] > suosikki_lkm
+          suosikki_lkm = data[r.beer.style]
+          suosikki_tyyli = r.beer.style
         end
       end
       suosikki_tyyli_taulu[user.id] = suosikki_tyyli
@@ -45,12 +45,12 @@ class User < ApplicationRecord
       data = {}
       suosikki_panimo = ""; suosikki_lkm = 0
       reittaukset.each do |r|
-        if r.user_id == user.id
-          data[r.beer.brewery.name] = data[r.beer.brewery.name].to_i + r.score.to_i
-          if data[r.beer.brewery.name] > suosikki_lkm
-            suosikki_lkm = data[r.beer.brewery.name]
-            suosikki_panimo = r.beer.brewery.name
-          end
+        next unless r.user_id == user.id
+
+        data[r.beer.brewery.name] = data[r.beer.brewery.name].to_i + r.score.to_i
+        if data[r.beer.brewery.name] > suosikki_lkm
+          suosikki_lkm = data[r.beer.brewery.name]
+          suosikki_panimo = r.beer.brewery.name
         end
       end
       fav_brew[user.id] = suosikki_panimo
@@ -74,8 +74,9 @@ class User < ApplicationRecord
   validate :check_capital_letter
   validate :check_number
 
-  has_many :ratings # , dependent: :destroy
+  has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
 
+  has_many :memberships, dependent: :destroy # lisätty
   has_many :beerclubs, through: :memberships
 end

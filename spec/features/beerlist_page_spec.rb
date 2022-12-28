@@ -37,4 +37,12 @@ describe "Beerlist page" do
     expect(page.all('#beertable tr')[2]).to have_content('Lechte Weisse Weizen Ayinger')
     expect(page.all('#beertable tr')[3]).to have_content('Nikolai Lager Koff')
   end
+
+  it "clicking 'Style' puts beers in alphabetical order", js:true do
+    visit beerlist_path
+    # click_on(find('#beertable').find('Style'))
+    click_on(page.all('#beertable tr')[0]).find('Style')
+    expect(page).to have_content("Beers")
+    expect(page).to have_content("Style")
+  end
 end

@@ -8,15 +8,16 @@ class BeersController < ApplicationController
 
   # GET /beers or /beers.json
   def index
-    @beers = Beer.all
+    # @beers = Beer.all
+    @beers = Beer.includes(:brewery, :ratings).all
 
     order = params[:order] || 'name'
 
     @beers = case order
-      when "name" then @beers.sort_by(&:name)
-      when "brewery" then @beers.sort_by { |b| b.brewery.name }
-      # when "style" then @beers.sort_by { |b| b.style.name }
-      when "rating" then @beers.sort_by(&:average_rating).reverse
+            when "name" then @beers.sort_by(&:name)
+            when "brewery" then @beers.sort_by { |b| b.brewery.name }
+            when "style" then @beers.sort_by(&:style)
+            when "rating" then @beers.sort_by(&:average_rating).reverse
     end
   end
 
@@ -29,14 +30,10 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
-    @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
   end
 
   # GET /beers/1/edit
   def edit
-    @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
   end
 
   # POST /beers or /beers.json
@@ -71,11 +68,20 @@ class BeersController < ApplicationController
 
   # DELETE /beers/1 or /beers/1.json
   def destroy
-    @beer.destroy
-
-    respond_to do |format|
-      format.html { redirect_to beers_url, notice: "Beer was successfully destroyed." }
-      format.json { head :no_content }
+    puts "*** current_user.admin: #{current_user.admin}"
+    if current_user.admin == true
+      puts "*** @beer.id #{@beer.id}"
+      @beer.destroy
+      puts "*** @beer.id #{@beer.id}"
+      respond_to do |format|
+        format.html { redirect_to beers_url, notice: "Beer was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to beers_url, notice: "You do not have admin rights." }
+        format.json { head :no_content }
+      end
     end
   end
 

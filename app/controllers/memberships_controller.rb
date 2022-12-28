@@ -19,6 +19,7 @@ class MembershipsController < ApplicationController
 
   # GET /memberships/1/edit
   def edit
+    @beerclubs = Beerclub.all
   end
 
   # POST /memberships or /memberships.json
@@ -72,10 +73,10 @@ class MembershipsController < ApplicationController
     @membership = Membership.find(params[:id])
   end
 
-  # def set_beer_clubs
-  #  memberships_of_current = current_user.memberships.map(&:beerclub)
-  #  @beer_clubs = BeerClub.where.not(id: memberships_of_current)
-  # end
+  def set_beer_clubs
+    memberships_of_current = current_user.memberships.map(&:beerclub)
+    @beerclubs = Beerclub.where.not(id: memberships_of_current)
+  end
 
   # Only allow a list of trusted parameters through.
   def membership_params

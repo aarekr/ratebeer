@@ -23,6 +23,9 @@
 <div>
   <%= link_to("Edit this beerclub", edit_beerclub_path(@beerclub)) if current_user %> |
   <%= link_to "Back to beerclubs", beerclubs_path %>
-
-  <%= button_to("Destroy this beerclub", @beerclub, method: :delete, class:"btn btn-danger") if current_user %>
+  <% if !current_user.nil? %>
+    <% if current_user.admin == true %>
+      <%= button_to("Destroy this beerclub", @beerclub, method: :delete, class:"btn btn-danger") if current_user %>
+    <% end %>
+  <% end %>
 </div>

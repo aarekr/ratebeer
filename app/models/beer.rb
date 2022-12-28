@@ -4,7 +4,7 @@ class Beer < ApplicationRecord
   validates :name, length: { minimum: 1 }
   validates :style, length: { minimum: 1 }
 
-  belongs_to :brewery, dependent: :destroy
+  belongs_to :brewery
   has_many :ratings, dependent: :destroy
   # has_many :users, through: :ratings
   # has_many :raters, through: :ratings, source: :user
@@ -12,7 +12,6 @@ class Beer < ApplicationRecord
 
   def to_s
     "#{name} - #{brewery.name}"
-    # "#{name}"
   end
 
   def average

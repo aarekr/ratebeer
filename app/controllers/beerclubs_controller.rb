@@ -73,11 +73,18 @@ class BeerclubsController < ApplicationController
 
   # DELETE /beerclubs/1 or /beerclubs/1.json
   def destroy
-    @beerclub.destroy
-
-    respond_to do |format|
-      format.html { redirect_to beerclubs_url, notice: "Beerclub was successfully destroyed." }
-      format.json { head :no_content }
+    puts "*** current_user.admin: #{current_user.admin}"
+    if current_user.admin == true
+      @beerclub.destroy
+      respond_to do |format|
+        format.html { redirect_to beerclubs_url, notice: "Beerclub was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to beerclubs_url, notice: "You do not have admin rights." }
+        format.json { head :no_content }
+      end
     end
   end
 

@@ -3,6 +3,9 @@
 <p>
   <strong>Username:</strong>
   <%= @user.username %>
+  <% if @user.admin == true %>
+    (admin)
+  <% end %>
 </p>
 
 <p>
