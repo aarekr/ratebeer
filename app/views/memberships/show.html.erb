@@ -3,6 +3,8 @@
 <div>
   <%= link_to "Edit this membership", edit_membership_path(@membership) %> |
   <%= link_to "Back to memberships", memberships_path %>
-
-  <%= button_to "Destroy this membership", @membership, method: :delete, class:"btn btn-danger" %>
+  <br><br>
+  <% if current_user.id == @membership.user_id or current_user.admin == true %>
+    <%= button_to "Destroy this membership", @membership, method: :delete, class:"btn btn-danger" %>
+  <% end %>
 </div>

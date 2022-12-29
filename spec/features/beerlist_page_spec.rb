@@ -24,22 +24,22 @@ describe "Beerlist page" do
     @beer3 = FactoryBot.create(:beer, name: "Lechte Weisse", brewery:@brewery3, style:@style3)
   end
 
-  #it "shows one known beer", js:true do
-  #  visit beerlist_path
+  it "shows one known beer", js:true do
+    visit beerlist_path
     # find('table').find('tr:nth-child(2)')
-  #  expect(page).to have_content("Beers")
-  #  expect(page).to have_content("Nikolai")
-  #end
+    expect(page).to have_content("Beers")
+    expect(page).to have_content("Nikolai")
+  end
 
-  #it "shows beers in alphabetical order", js:true do
-  #  visit beerlist_path
-  #  expect(page).to have_content("Beers")
+  it "shows beers in alphabetical order", js:true do
+    visit beerlist_path
+    expect(page).to have_content("Beers")
     # expect(find('#beertable').first('.tablerow')).to have_content('Fastenbier')
-  #  expect(page.all('#beertable tr').count).to eq(4)
-  #  expect(page.all('#beertable tr')[1]).to have_content('Fastenbier Rauchbier Schlenkerla')
-  #  expect(page.all('#beertable tr')[2]).to have_content('Lechte Weisse Weizen Ayinger')
-  #  expect(page.all('#beertable tr')[3]).to have_content('Nikolai Lager Koff')
-  #end
+    expect(page.all('#beertable tr').count).to eq(4)
+    expect(page.all('#beertable tr')[1]).to have_content('Fastenbier Rauchbier Schlenkerla')
+    expect(page.all('#beertable tr')[2]).to have_content('Lechte Weisse Weizen Ayinger')
+    expect(page.all('#beertable tr')[3]).to have_content('Nikolai Lager Koff')
+  end
 
   it "clicking 'Style' puts styles in alphabetical order", js:true do
     visit beerlist_path

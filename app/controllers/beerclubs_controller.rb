@@ -73,7 +73,6 @@ class BeerclubsController < ApplicationController
 
   # DELETE /beerclubs/1 or /beerclubs/1.json
   def destroy
-    puts "*** current_user.admin: #{current_user.admin}"
     if current_user.admin == true
       @beerclub.destroy
       respond_to do |format|

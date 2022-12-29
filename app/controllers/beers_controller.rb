@@ -8,7 +8,6 @@ class BeersController < ApplicationController
 
   # GET /beers or /beers.json
   def index
-    # @beers = Beer.all
     @beers = Beer.includes(:brewery, :ratings).all
 
     order = params[:order] || 'name'
@@ -41,7 +40,7 @@ class BeersController < ApplicationController
     @beer = Beer.new(beer_params)
 
     respond_to do |format|
-      if @beer.save # redirect_to beer_url(@beer)
+      if @beer.save
         format.html { redirect_to beers_path, notice: "Beer was successfully created." }
         format.json { render :show, status: :created, location: @beer }
       else
@@ -68,11 +67,8 @@ class BeersController < ApplicationController
 
   # DELETE /beers/1 or /beers/1.json
   def destroy
-    puts "*** current_user.admin: #{current_user.admin}"
     if current_user.admin == true
-      puts "*** @beer.id #{@beer.id}"
       @beer.destroy
-      puts "*** @beer.id #{@beer.id}"
       respond_to do |format|
         format.html { redirect_to beers_url, notice: "Beer was successfully destroyed." }
         format.json { head :no_content }

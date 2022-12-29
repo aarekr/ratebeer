@@ -7,7 +7,6 @@ class BreweriesController < ApplicationController
 
   # GET /breweries or /breweries.json
   def index
-    # @breweries = Brewery.all
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
     @breweries = @active_breweries + @retired_breweries
@@ -58,7 +57,6 @@ class BreweriesController < ApplicationController
   def destroy
     if current_user.admin == true
       @brewery.destroy
-      puts "*** PANIMO TUHOTTU ***"
       Beer.all.each{ |olut| olut.destroy if olut.brewery.nil? }
 
       respond_to do |format|
@@ -86,7 +84,6 @@ class BreweriesController < ApplicationController
   end
 
   def toggle_activity
-    puts "*** breweries toggle_activity"
     brewery = Brewery.find(params[:id])
     brewery.update_attribute :active, !brewery.active
     new_status = brewery.active? ? "active" : "retired"

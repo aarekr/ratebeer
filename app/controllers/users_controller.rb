@@ -74,7 +74,6 @@ class UsersController < ApplicationController
   end
 
   def toggle_activity
-    puts "*** users toggle_activity"
     user = User.find(params[:id])
     user.update_attribute :active, !user.active
     new_status = user.active? ? "true" : "false"

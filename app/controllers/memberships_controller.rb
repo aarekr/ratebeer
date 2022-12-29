@@ -5,10 +5,14 @@ class MembershipsController < ApplicationController
   # GET /memberships or /memberships.json
   def index
     @memberships = Membership.all
+    @beerclubs = Beerclub.all
+    @users = User.all
   end
 
   # GET /memberships/1 or /memberships/1.json
   def show
+    @beerclubs = Beerclub.all
+    @users = User.all
   end
 
   # GET /memberships/new
@@ -57,7 +61,6 @@ class MembershipsController < ApplicationController
 
   # DELETE /memberships/1 or /memberships/1.json
   def destroy
-    puts "*** membership destroy"
     @membership.destroy
 
     respond_to do |format|

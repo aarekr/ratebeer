@@ -1,7 +1,15 @@
 <div id="<%= dom_id membership %>">
     <strong>Beer club:</strong>
-    <%= membership.beer_club_id %>
+    <% @beerclubs.each do |club| %>
+        <% if club.id == membership.beer_club_id %>
+            <%= club.name %>
+        <% end %>
+    <% end %>
     <br>
     <strong>User:</strong>
-    <%= membership.user_id %>
+    <% @users.each do |user| %>
+        <% if user.id == membership.user_id %>
+            <%= user.username %>
+        <% end %>
+    <% end %>
 </div>
