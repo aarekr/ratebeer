@@ -8,8 +8,8 @@ describe "Beerlist page" do
         # options: Selenium::WebDriver::Chrome::Options.new(args: %w[headless disable-gpu])
     end
     # Capybara.javascript_driver = :chrome
-    WebMock.disable_net_connect!(allow_localhost: true)
-    # WebMock.allow_net_connect!
+    # WebMock.disable_net_connect!(allow_localhost: true)
+    WebMock.allow_net_connect!
   end
 
   before :each do
